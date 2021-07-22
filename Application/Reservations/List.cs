@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -5,6 +6,7 @@ using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace Application.Reservations
@@ -23,7 +25,7 @@ namespace Application.Reservations
 
             public async Task<List<Reservation>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Reservations.ToListAsync();
+                return await _context.Reservations.ToListAsync(cancellationToken);
             }
         }
     }
