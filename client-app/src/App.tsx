@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { ExampleComponent } from "./ExampleCompontent";
-import {i18n} from './translations/i18n';
-function App() {
-  const [language, setLanguage] = useState('en');
+import { i18n } from "./translations/i18n";
+import axios from "axios";
 
-  // const handleOnclick = (e: { preventDefault: () => void; target: { value: React.SetStateAction<string>; }; }) => {
-  //   e.preventDefault();
-  //   setLanguage(e.target.value);
-  //   i18n.changeLanguage(e.target.value);
-  // }
+function App() {
+  const [language, setLanguage] = useState("en");
+  const [reservations, setReservation] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/reservations").then((response) => {
+      console.log(response);
+      setReservation(response.data);
+    });
+  }, []);
 
   const handleOnclick = (e: any) => {
     e.preventDefault();
@@ -23,8 +27,16 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
+        <ul>
+          {reservations.map((reservation: any) => (
+            <li key={reservation.id}>
+              {reservation.reservationDate}
+            </li>
+          ))}
+        </ul>
+
         <ExampleComponent />
-                
+
         <div style={{ flexDirection: "row" }}>
           <button value="es" onClick={handleOnclick}>
             Spanish
@@ -39,8 +51,6 @@ function App() {
             Portuguese
           </button>
         </div>
-
-        
       </header>
     </div>
   );
