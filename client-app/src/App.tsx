@@ -4,6 +4,7 @@ import "./App.css";
 import { ExampleComponent } from "./ExampleCompontent";
 import { i18n } from "./translations/i18n";
 import axios from "axios";
+import { Header, List } from "semantic-ui-react";
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -23,17 +24,17 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <ul>
-          {reservations.map((reservation: any) => (
-            <li key={reservation.id}>
+    <div >
+      <Header as='h2' icon='hotel' content='HotelScheduler' />
+      <List>
+      {reservations.map((reservation: any) => (
+            <List.Item key={reservation.id}>
               {reservation.reservationDate}
-            </li>
+            </List.Item>
           ))}
-        </ul>
+      </List>
+
+    
 
         <ExampleComponent />
 
@@ -51,7 +52,7 @@ function App() {
             Portuguese
           </button>
         </div>
-      </header>
+    
     </div>
   );
 }
