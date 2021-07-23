@@ -1,23 +1,22 @@
-import React from "react";
-import { useState, useEffect, Fragment } from "react";
+import { useState } from "react";
 import { i18n } from "../../translations/i18n";
-
-
 import { Button, Container, Menu, Flag } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
 
+interface Props {
+  openForm: () => void;
+}
 
-export default function NavBar() {
-    const { t } = useTranslation();
+export default function NavBar({openForm}: Props) {
+  const { t } = useTranslation();
 
+  const [, setLanguage] = useState("en");
 
-    const [language, setLanguage] = useState("en");
-
-    const handleOnclick = (e: any) => {
-        e.preventDefault();
-        setLanguage(e.target.value);
-        i18n.changeLanguage(e.target.value);
-      };
+  const handleOnclick = (e: any) => {
+    e.preventDefault();
+    setLanguage(e.target.value);
+    i18n.changeLanguage(e.target.value);
+  };
   return (
     <Menu inverted fixed="top">
       <Container>
@@ -31,21 +30,21 @@ export default function NavBar() {
         </Menu.Item>
         <Menu.Item name={t("tReservations")} />
         <Menu.Item>
-          <Button positive content={t("bCreateReservation")} />
+          <Button onClick={openForm} positive content={t("bCreateReservation")} />
         </Menu.Item>
       </Container>
-      <Container style={{justifyContent: 'flex-end'}}>
-        <Menu.Item >
-          <Button style={{margin: 10}} value="es" onClick={handleOnclick}>
+      <Container style={{ justifyContent: "flex-end" }}>
+        <Menu.Item>
+          <Button style={{ margin: 10 }} value="es" onClick={handleOnclick}>
             <Flag name="es" />
           </Button>
-          <Button style={{margin: 10}} value="en" onClick={handleOnclick}>
-            <Flag name="gb eng"  />
+          <Button style={{ margin: 10 }} value="en" onClick={handleOnclick}>
+            <Flag name="gb eng" />
           </Button>
-          <Button style={{margin: 10}} value="fr" onClick={handleOnclick}>
+          <Button style={{ margin: 10 }} value="fr" onClick={handleOnclick}>
             <Flag name="fr" />
           </Button>
-          <Button style={{margin: 10}} value="pt" onClick={handleOnclick}>
+          <Button style={{ margin: 10 }} value="pt" onClick={handleOnclick}>
             <Flag name="br" />
           </Button>
         </Menu.Item>

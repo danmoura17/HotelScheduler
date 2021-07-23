@@ -1,18 +1,18 @@
-import moment from "moment";
-import React from "react";
 import Moment from "react-moment";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { Reservation } from "../../models/reservation";
-import { i18n } from "../../../translations/i18n";
 import { useTranslation } from "react-i18next";
 
 
 
 interface Props {
   reservations: Reservation[];
+  selectReservation: (id: string) => void;
+  deleteReservation: (id: string) => void;
+
 }
 
-export default function ReservationList({ reservations }: Props) {
+export default function ReservationList({ reservations, selectReservation, deleteReservation }: Props) {
     const { t } = useTranslation();
 
 
@@ -33,7 +33,8 @@ export default function ReservationList({ reservations }: Props) {
               <Item.Meta>{reservation.checkinDate}</Item.Meta>
               <Item.Description>{reservation.checkoutDate}</Item.Description>
               <Item.Extra>
-                <Button floated="right" content="View" color="blue" />
+                <Button onClick={() => selectReservation(reservation.id)} floated="right" content="View" color="blue" />
+                <Button onClick={() => deleteReservation(reservation.id)} floated="right" content="Delete" color="red" />
                 <Label basic content="Teste" />
               </Item.Extra>
             </Item.Content>

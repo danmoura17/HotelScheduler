@@ -1,13 +1,15 @@
-import React from "react";
 import Moment from "react-moment";
-import { Button, Card, Icon, Image } from "semantic-ui-react";
+import { Button, Card, Image } from "semantic-ui-react";
 import { Reservation } from "../../models/reservation";
 
 interface Props {
   reservation: Reservation;
+  cancelSelectReservation: () => void;
+  openForm: (id: string) => void;
+
 }
 
-export default function ReservationDetails({ reservation }: Props) {
+export default function ReservationDetails({ reservation, cancelSelectReservation, openForm }: Props) {
   return (
     <Card fluid>
       <Image
@@ -28,8 +30,8 @@ export default function ReservationDetails({ reservation }: Props) {
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths='2'>
-            <Button basic color='blue' content='Edit'/>
-            <Button basic color='grey' content='Cancel'/>
+            <Button onClick={() => openForm(reservation.id)} basic color='blue' content='Edit'/>
+            <Button onClick={cancelSelectReservation} basic color='grey' content='Cancel'/>
         </Button.Group>
       </Card.Content>
     </Card>

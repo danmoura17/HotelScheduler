@@ -1,37 +1,76 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { ExampleComponent } from "../../ExampleCompontent";
-import { i18n } from "../../translations/i18n";
 import axios from "axios";
-import { Container, Header, List } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import { Reservation } from "../models/reservation";
 import NavBar from "./NavBar";
 import ReservationDashboard from "../features/dashboard/ReservationDashboard";
+import {v4 as uuid} from 'uuid';
 
 function App() {
-  const [language, setLanguage] = useState("en");
-  const [reservations, setReservation] = useState<Reservation[]>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [selectedReservation, setSelectedReservation] = useState<
+    Reservation | undefined
+  >(undefined);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     axios
       .get<Reservation[]>("http://localhost:5000/api/reservations")
       .then((response) => {
-        console.log(response);
-        setReservation(response.data);
+        setReservations(response.data);
       });
   }, []);
 
-  const handleOnclick = (e: any) => {
-    e.preventDefault();
-    setLanguage(e.target.value);
-    i18n.changeLanguage(e.target.value);
-  };
+  function handleSelectReservation(id: string) {
+    setSelectedReservation(reservations.find((x) => x.id === id));
+  }
+
+  function handleCancelSelectReservation() {
+    setSelectedReservation(undefined);
+  }
+
+  function handleFormOpen(id?: string) {
+    id ? handleSelectReservation(id) : handleCancelSelectReservation();
+    setEditMode(true);
+  }
+
+  function handleFormClose() {
+    setEditMode(false);
+  }
+
+  function handleCreateOrEditReservation(reservation: Reservation) {
+    reservation.id
+      ? setReservations([
+          ...reservations.filter((x) => x.id !== reservation.id),
+          reservation,
+        ])
+      : setReservations([...reservations, {...reservation, id: uuid()}]);
+      setEditMode(false);
+      setSelectedReservation(reservation);
+  }
+
+  function handleDeleteReservation(id: string){
+    setReservations([...reservations.filter(x => x.id !== id)])
+
+  }
 
   return (
     <>
-      <NavBar />
+      <NavBar openForm={handleFormOpen} />
       <Container style={{ marginTop: "7em" }}>
         <ExampleComponent />
-        <ReservationDashboard reservations={reservations}/>
+        <ReservationDashboard
+          reservations={reservations}
+          selectedReservation={selectedReservation}
+          selectReservation={handleSelectReservation}
+          cancelSelectReservation={handleCancelSelectReservation}
+          editMode={editMode}
+          openForm={handleFormOpen}
+          closeForm={handleFormClose}
+          createOrEdit={handleCreateOrEditReservation}
+          deleteReservation={handleDeleteReservation}
+        />
       </Container>
     </>
   );
