@@ -1,17 +1,12 @@
 import { Grid } from "semantic-ui-react";
-import { Reservation } from "../../models/reservation";
+import { Reservation } from "../../app/models/reservation";
+import { useStore } from "../../app/stores/store";
 import ReservationDetails from "../details/ReservationDetails";
 import ReservationForm from "../form/ReservationForm";
 import ReservationList from "./ReservationList";
 
 interface Props {
   reservations: Reservation[];
-  selectedReservation: Reservation | undefined;
-  selectReservation: (id: string) => void;
-  cancelSelectReservation: () => void;
-  editMode: boolean;
-  openForm: (id: string) => void;
-  closeForm: () => void;
   createOrEdit: (reservation: Reservation) => void;
   deleteReservation: (id: string) => void;
   submitting: boolean;
@@ -19,38 +14,26 @@ interface Props {
 
 export default function ReservationDashboard({
   reservations,
-  selectedReservation,
-  selectReservation,
-  cancelSelectReservation,
-  editMode,
-  openForm,
-  closeForm,
   createOrEdit,
   deleteReservation,
   submitting,
 }: Props) {
+  const { reservationStore } = useStore();
+  const { selectedReservation, editMode } = reservationStore;
+
   return (
     <Grid>
       <Grid.Column width="10">
         <ReservationList
           reservations={reservations}
-          selectReservation={selectReservation}
           deleteReservation={deleteReservation}
           submitting={submitting}
         />
       </Grid.Column>
       <Grid.Column width="6">
-        {selectedReservation && (
-          <ReservationDetails
-            reservation={selectedReservation}
-            cancelSelectReservation={cancelSelectReservation}
-            openForm={openForm}
-          />
-        )}
+        {selectedReservation && !editMode && <ReservationDetails /> }
         {editMode && (
           <ReservationForm
-            closeForm={closeForm}
-            reservation={selectedReservation}
             createOrEdit={createOrEdit}
             submitting={submitting}
           />

@@ -1,15 +1,17 @@
 import Moment from "react-moment";
 import { Button, Card, Image } from "semantic-ui-react";
-import { Reservation } from "../../models/reservation";
+import LoadingComponent from "../../app/layouts/loadingComponent";
+import { Reservation } from "../../app/models/reservation";
+import { useStore } from "../../app/stores/store";
 
-interface Props {
-  reservation: Reservation;
-  cancelSelectReservation: () => void;
-  openForm: (id: string) => void;
 
-}
+export default function ReservationDetails() {
 
-export default function ReservationDetails({ reservation, cancelSelectReservation, openForm }: Props) {
+const {reservationStore} = useStore();
+const {selectedReservation: reservation, openForm, cancelSelectedReservation} = reservationStore;
+
+if(!reservation) return <LoadingComponent/>;
+
   return (
     <Card fluid>
       <Image
@@ -31,7 +33,7 @@ export default function ReservationDetails({ reservation, cancelSelectReservatio
       <Card.Content extra>
         <Button.Group widths='2'>
             <Button onClick={() => openForm(reservation.id)} basic color='blue' content='Edit'/>
-            <Button onClick={cancelSelectReservation} basic color='grey' content='Cancel'/>
+            <Button onClick={cancelSelectedReservation} basic color='grey' content='Cancel'/>
         </Button.Group>
       </Card.Content>
     </Card>

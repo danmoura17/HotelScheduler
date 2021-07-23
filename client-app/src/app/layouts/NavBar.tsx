@@ -2,12 +2,10 @@ import { useState } from "react";
 import { i18n } from "../../translations/i18n";
 import { Button, Container, Menu, Flag } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
+import { useStore } from "../stores/store";
 
-interface Props {
-  openForm: () => void;
-}
 
-export default function NavBar({openForm}: Props) {
+export default function NavBar() {
   const { t } = useTranslation();
 
   const [, setLanguage] = useState("en");
@@ -17,6 +15,8 @@ export default function NavBar({openForm}: Props) {
     setLanguage(e.target.value);
     i18n.changeLanguage(e.target.value);
   };
+
+  const {reservationStore} = useStore();
   return (
     <Menu inverted fixed="top">
       <Container>
@@ -30,7 +30,7 @@ export default function NavBar({openForm}: Props) {
         </Menu.Item>
         <Menu.Item name={t("tReservations")} />
         <Menu.Item>
-          <Button onClick={openForm} positive content={t("bCreateReservation")} />
+          <Button onClick={() => reservationStore.openForm()} positive content={t("bCreateReservation")} />
         </Menu.Item>
       </Container>
       <Container style={{ justifyContent: "flex-end" }}>

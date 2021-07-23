@@ -1,22 +1,25 @@
 import { ChangeEvent, useState } from "react";
 import { Button, Container, Form, Segment } from "semantic-ui-react";
-import { Reservation } from "../../models/reservation";
+import { Reservation } from "../../app/models/reservation";
 import { useTranslation } from "react-i18next";
 import SemanticDatepicker from "react-semantic-ui-datepickers";
+import { useStore } from "../../app/stores/store";
 
 interface Props {
-  reservation: Reservation | undefined;
-  closeForm: () => void;
+  
   createOrEdit: (reservation: Reservation) => void;
   submitting: boolean;
 }
 
 export default function ReservationForm({
-  reservation: selectedReservation,
-  closeForm,
+
   createOrEdit,
   submitting
 }: Props) {
+
+const {reservationStore} = useStore();
+const {selectedReservation, closeForm} = reservationStore;
+
   const initialState = selectedReservation ?? {
     id: "",
     reservationDate: "",

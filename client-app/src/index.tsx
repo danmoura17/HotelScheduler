@@ -8,10 +8,14 @@ import 'moment/locale/fr-ca';
 import 'moment/locale/pt-br';
 import 'moment/locale/es';
 import 'moment/locale/en-ca';
+import { store, StoreContext } from './app/stores/store';
 
 
 ReactDOM.render(
+  <StoreContext.Provider value={store}>
     <App />,
+  </StoreContext.Provider>,
+    
   document.getElementById('root')
 );
 
