@@ -14,6 +14,7 @@ interface Props {
   closeForm: () => void;
   createOrEdit: (reservation: Reservation) => void;
   deleteReservation: (id: string) => void;
+  submitting: boolean;
 }
 
 export default function ReservationDashboard({
@@ -25,7 +26,8 @@ export default function ReservationDashboard({
   openForm,
   closeForm,
   createOrEdit,
-  deleteReservation
+  deleteReservation,
+  submitting,
 }: Props) {
   return (
     <Grid>
@@ -34,6 +36,7 @@ export default function ReservationDashboard({
           reservations={reservations}
           selectReservation={selectReservation}
           deleteReservation={deleteReservation}
+          submitting={submitting}
         />
       </Grid.Column>
       <Grid.Column width="6">
@@ -49,6 +52,7 @@ export default function ReservationDashboard({
             closeForm={closeForm}
             reservation={selectedReservation}
             createOrEdit={createOrEdit}
+            submitting={submitting}
           />
         )}
       </Grid.Column>
