@@ -5,6 +5,7 @@ import axios from "axios";
 import { Container, Header, List } from "semantic-ui-react";
 import { Reservation } from "../models/reservation";
 import NavBar from "./NavBar";
+import ReservationDashboard from "../features/dashboard/ReservationDashboard";
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -28,15 +29,9 @@ function App() {
   return (
     <>
       <NavBar />
-      <Container style={{marginTop: '7em'}}>
-      <ExampleComponent />
-        <List>
-          {reservations.map((reservation) => (
-            <List.Item key={reservation.id}>
-              {reservation.reservationDate}
-            </List.Item>
-          ))}
-        </List>
+      <Container style={{ marginTop: "7em" }}>
+        <ExampleComponent />
+        <ReservationDashboard reservations={reservations}/>
       </Container>
     </>
   );

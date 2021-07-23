@@ -4,6 +4,11 @@ import 'semantic-ui-css/semantic.min.css'
 import './app/layouts/styles.css';
 import App from './app/layouts/App';
 import reportWebVitals from './reportWebVitals';
+import 'moment/locale/fr-ca';
+import 'moment/locale/pt-br';
+import 'moment/locale/es';
+import 'moment/locale/en-ca';
+
 
 ReactDOM.render(
     <App />,
