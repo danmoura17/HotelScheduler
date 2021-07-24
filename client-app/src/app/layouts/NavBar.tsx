@@ -3,18 +3,11 @@ import { i18n } from "../../translations/i18n";
 import { Button, Container, Menu, Flag } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import LanguageSelector from "../../features/translations/LanguageSelector";
 
 
 export default function NavBar() {
   const { t } = useTranslation();
-
-  const [, setLanguage] = useState("en");
-
-  const handleOnclick = (e: any) => {
-    e.preventDefault();
-    setLanguage(e.target.value);
-    i18n.changeLanguage(e.target.value);
-  };
 
   return (
     <Menu inverted fixed="top">
@@ -33,20 +26,7 @@ export default function NavBar() {
         </Menu.Item>
       </Container>
       <Container style={{ justifyContent: "flex-end" }}>
-        <Menu.Item>
-          <Button style={{ margin: 10 }} value="es" onClick={handleOnclick}>
-            <Flag name="es" />
-          </Button>
-          <Button style={{ margin: 10 }} value="en" onClick={handleOnclick}>
-            <Flag name="gb eng" />
-          </Button>
-          <Button style={{ margin: 10 }} value="fr" onClick={handleOnclick}>
-            <Flag name="fr" />
-          </Button>
-          <Button style={{ margin: 10 }} value="pt" onClick={handleOnclick}>
-            <Flag name="br" />
-          </Button>
-        </Menu.Item>
+        <LanguageSelector/>
       </Container>
     </Menu>
   );

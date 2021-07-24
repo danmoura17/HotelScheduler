@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Button, Container, Header, Image, Segment } from "semantic-ui-react";
-import { ExampleComponent } from "../../ExampleCompontent";
+import { Button, Container, Flag, Header, Image, Menu, Segment } from "semantic-ui-react";
+import { ExampleComponent } from "../translations/ExampleCompontent";
+import { i18n } from "../../translations/i18n";
+import LanguageSelector from "../translations/LanguageSelector";
 
 export default function HomePage() {
+
+  const { t } = useTranslation();
+
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
       <Container text>
@@ -19,9 +25,13 @@ export default function HomePage() {
         </Header>
        
         <Button as={Link} to={'/reservations'} size='huge' inverted> 
-            Take me to the Reservations!
+            {t('bGoDashboard')}
         </Button>
+
+       <LanguageSelector/>
       </Container>
+     
+        
     </Segment>
   );
 }

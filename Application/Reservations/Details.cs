@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +11,12 @@ namespace Application.Reservations
 {
     public class Details
     {
-        public class Query : IRequest<Reservation>
+        public class Query : IRequest<Result<Reservation>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Reservation>
+        public class Handler : IRequestHandler<Query, Result<Reservation>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -23,9 +24,11 @@ namespace Application.Reservations
                 _context = context;
 
             }
-            public async Task<Reservation> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<Reservation>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Reservations.FindAsync(request.Id);
+                var reservation = await _context.Reservations.FindAsync(request.Id);
+
+                return Result<Reservation>.Success(reservation);
             }
         }
     }
