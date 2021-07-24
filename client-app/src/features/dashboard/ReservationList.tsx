@@ -1,21 +1,15 @@
 import Moment from "react-moment";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
-import { Reservation } from "../../app/models/reservation";
 import { useTranslation } from "react-i18next";
 import { SyntheticEvent, useState } from "react";
 import { useStore } from "../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-  reservations: Reservation[];
-  deleteReservation: (id: string) => void;
-  submitting: boolean;
-}
 
-export default function ReservationList({
-  reservations,
-  deleteReservation,
-  submitting,
-}: Props) {
+export default observer (function ReservationList() {
+const {reservationStore} = useStore();
+const {deleteReservation, reservationsByDate, loading} = reservationStore;
+
   const { t } = useTranslation();
   const [target, setTarget] = useState('');
 
@@ -24,12 +18,11 @@ export default function ReservationList({
     deleteReservation(id);
   }
 
-  const {reservationStore} = useStore();
 
   return (
     <Segment>
       <Item.Group divided>
-        {reservations.map((reservation) => (
+        {reservationsByDate.map((reservation) => (
           <Item key={reservation.id}>
             <Item.Content>
               <Item.Header as="a">
@@ -51,7 +44,7 @@ export default function ReservationList({
                 />
                 <Button
                   name={reservation.id}
-                  loading={submitting && target == reservation.id}
+                  loading={loading && target == reservation.id}
                   onClick={(e) => handleReservationDelete(e, reservation.id)}
                   floated="right"
                   content="Delete"
@@ -65,4 +58,4 @@ export default function ReservationList({
       </Item.Group>
     </Segment>
   );
-}
+})

@@ -1,7 +1,6 @@
 import Moment from "react-moment";
 import { Button, Card, Image } from "semantic-ui-react";
 import LoadingComponent from "../../app/layouts/loadingComponent";
-import { Reservation } from "../../app/models/reservation";
 import { useStore } from "../../app/stores/store";
 
 

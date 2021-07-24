@@ -1,24 +1,14 @@
 import { ChangeEvent, useState } from "react";
-import { Button, Container, Form, Segment } from "semantic-ui-react";
-import { Reservation } from "../../app/models/reservation";
+import { Button, Form, Segment } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
-import SemanticDatepicker from "react-semantic-ui-datepickers";
 import { useStore } from "../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-  
-  createOrEdit: (reservation: Reservation) => void;
-  submitting: boolean;
-}
 
-export default function ReservationForm({
-
-  createOrEdit,
-  submitting
-}: Props) {
+export default observer (function ReservationForm() {
 
 const {reservationStore} = useStore();
-const {selectedReservation, closeForm} = reservationStore;
+const {selectedReservation, closeForm, createReservation, updateReservation, loading} = reservationStore;
 
   const initialState = selectedReservation ?? {
     id: "",
@@ -30,7 +20,7 @@ const {selectedReservation, closeForm} = reservationStore;
   const [reservation, setReservation] = useState(initialState);
 
   function handleSubmit() {
-    createOrEdit(reservation);
+    reservation.id ? updateReservation(reservation) : createReservation(reservation)
   }
 
   function handleInputChange(
@@ -68,9 +58,10 @@ const {selectedReservation, closeForm} = reservationStore;
           name="checkoutDate"
           onChange={handleInputChange}
         />
-        <Button loading={submitting} floated="right" positive type="submit" content="Submit" />
+        <Button loading={loading} floated="right" positive type="submit" content="Submit" />
         <Button onClick={closeForm} floated="right" type="button" content="Cancel" />
       </Form>
     </Segment>
   );
 }
+)
