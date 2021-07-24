@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Reservation } from "../models/reservation";
-import { v4 as uuid } from "uuid";
 
 export default class ReservationStore {
   reservertionRegistry = new Map<string, Reservation>();
@@ -15,18 +14,17 @@ export default class ReservationStore {
   }
 
   get reservationsByDate() {
-      return Array.from(this.reservertionRegistry.values()).sort((a, b) => 
-      Date.parse(a.reservationDate) - Date.parse(b.reservationDate));
+    return Array.from(this.reservertionRegistry.values()).sort(
+      (a, b) => Date.parse(a.reservationDate) - Date.parse(b.reservationDate)
+    );
   }
 
   loadReservations = async () => {
+    this.loadingInitial = true;
     try {
       const reservations = await agent.Reservations.list();
       reservations.forEach((reservation) => {
-        reservation.reservationDate = reservation.reservationDate.split("T")[0];
-        reservation.checkinDate = reservation.checkinDate.split("T")[0];
-        reservation.checkoutDate = reservation.checkoutDate.split("T")[0];
-        this.reservertionRegistry.set(reservation.id, reservation)
+        this.setReservation(reservation);
       });
       this.setLoadingInitial(false);
     } catch (error) {
@@ -35,34 +33,49 @@ export default class ReservationStore {
     }
   };
 
+  loadReservation = async (id: string) => {
+    let reservation = this.getReservation(id);
+    if (reservation) {
+      this.selectedReservation = reservation;
+      return reservation;
+    } else {
+      this.loadingInitial = true;
+      try {
+        reservation = await agent.Reservations.details(id);
+        this.setReservation(reservation);
+        runInAction(()=>{
+          this.selectedReservation = reservation;
+        })
+        this.setLoadingInitial(false);
+        return reservation;
+      } catch (error) {
+        console.log(error);
+        this.setLoadingInitial(false);
+      }
+    }
+  };
+
+  private setReservation = (reservation: Reservation) => {
+    reservation.reservationDate = reservation.reservationDate.split("T")[0];
+    reservation.checkinDate = reservation.checkinDate.split("T")[0];
+    reservation.checkoutDate = reservation.checkoutDate.split("T")[0];
+    this.reservertionRegistry.set(reservation.id, reservation);
+  };
+
+  private getReservation = (id: string) => {
+    return this.reservertionRegistry.get(id);
+  };
+
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
   };
 
-  selectReservation = (id: string) => {
-    this.selectedReservation = this.reservertionRegistry.get(id)
-  };
-
-  cancelSelectedReservation = () => {
-    this.selectedReservation = undefined;
-  };
-
-  openForm = (id?: string) => {
-    id ? this.selectReservation(id) : this.cancelSelectedReservation();
-    this.editMode = true;
-  };
-
-  closeForm = () => {
-    this.editMode = false;
-  };
-
   createReservation = async (reservation: Reservation) => {
     this.loading = true;
-    reservation.id = uuid();
     try {
       await agent.Reservations.create(reservation);
       runInAction(() => {
-        this.reservertionRegistry.set(reservation.id, reservation)
+        this.reservertionRegistry.set(reservation.id, reservation);
         this.selectedReservation = reservation;
         this.editMode = false;
         this.loading = false;
@@ -80,7 +93,7 @@ export default class ReservationStore {
     try {
       await agent.Reservations.update(reservation);
       runInAction(() => {
-        this.reservertionRegistry.set(reservation.id, reservation)
+        this.reservertionRegistry.set(reservation.id, reservation);
         this.selectedReservation = reservation;
         this.editMode = false;
         this.loading = false;
@@ -99,8 +112,6 @@ export default class ReservationStore {
       await agent.Reservations.delete(id);
       runInAction(() => {
         this.reservertionRegistry.delete(id);
-        if (this.selectedReservation?.id === id)
-          this.cancelSelectedReservation();
         this.loading = false;
       });
     } catch (error) {

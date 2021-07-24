@@ -2,7 +2,7 @@ import { useState } from "react";
 import { i18n } from "../../translations/i18n";
 import { Button, Container, Menu, Flag } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
-import { useStore } from "../stores/store";
+import { NavLink } from "react-router-dom";
 
 
 export default function NavBar() {
@@ -16,11 +16,10 @@ export default function NavBar() {
     i18n.changeLanguage(e.target.value);
   };
 
-  const {reservationStore} = useStore();
   return (
     <Menu inverted fixed="top">
       <Container>
-        <Menu.Item header>
+        <Menu.Item as={NavLink} to='/' exact header >
           <img
             src="/assets/logo.png"
             alt="logo"
@@ -28,9 +27,9 @@ export default function NavBar() {
           />
           HotelScheduler
         </Menu.Item>
-        <Menu.Item name={t("tReservations")} />
+        <Menu.Item as={NavLink} to='/reservations' name={t("tReservations")} />
         <Menu.Item>
-          <Button onClick={() => reservationStore.openForm()} positive content={t("bCreateReservation")} />
+          <Button as={NavLink} to='/createReservation' positive content={t("bCreateReservation")} />
         </Menu.Item>
       </Container>
       <Container style={{ justifyContent: "flex-end" }}>

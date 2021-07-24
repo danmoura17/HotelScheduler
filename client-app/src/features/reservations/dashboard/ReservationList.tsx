@@ -2,8 +2,9 @@ import Moment from "react-moment";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
 import { SyntheticEvent, useState } from "react";
-import { useStore } from "../../app/stores/store";
+import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 
 export default observer (function ReservationList() {
@@ -37,14 +38,14 @@ const {deleteReservation, reservationsByDate, loading} = reservationStore;
               <Item.Description>{reservation.checkoutDate}</Item.Description>
               <Item.Extra>
                 <Button
-                  onClick={() => reservationStore.selectReservation(reservation.id)}
+                  as={Link} to={`/reservations/${reservation.id}`}
                   floated="right"
                   content="View"
                   color="blue"
                 />
                 <Button
                   name={reservation.id}
-                  loading={loading && target == reservation.id}
+                  loading={loading && target === reservation.id}
                   onClick={(e) => handleReservationDelete(e, reservation.id)}
                   floated="right"
                   content="Delete"

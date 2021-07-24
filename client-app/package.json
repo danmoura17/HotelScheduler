@@ -21,6 +21,7 @@
     "react-dom": "^17.0.2",
     "react-i18next": "^11.11.3",
     "react-moment": "^1.1.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-semantic-ui-datepickers": "^2.13.2",
     "semantic-ui-css": "^2.4.1",
@@ -54,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.1.8",
     "@types/uuid": "^8.3.1"
   }
 }
