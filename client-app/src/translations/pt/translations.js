@@ -1,5 +1,5 @@
 export const TRANSLATIONS_PT= {
-    welcome:"Bem-vindo ao HotelScheduler",
+    welcome:"Bem-vindo ao",
     tReservations:"Reservas",
     bCreateReservation:"Criar Reserva",
     locale:'pt-br'

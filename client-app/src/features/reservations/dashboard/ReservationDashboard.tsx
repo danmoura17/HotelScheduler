@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layouts/loadingComponent";
 import { useStore } from "../../../app/stores/store";
+import ReservationFilters from "./ReservationFilters";
 import ReservationList from "./ReservationList";
 
 export default observer(function ReservationDashboard() {
@@ -22,7 +23,7 @@ export default observer(function ReservationDashboard() {
         <ReservationList />
       </Grid.Column>
       <Grid.Column width="6">
-        <h2>Reservation Filters</h2>
+        <ReservationFilters/>
       </Grid.Column>
     </Grid>
   );

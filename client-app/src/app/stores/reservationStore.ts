@@ -19,6 +19,16 @@ export default class ReservationStore {
     );
   }
 
+  get groupedReservations () {
+    return Object.entries(
+      this.reservationsByDate.reduce((reservations, reservation)=>{
+        const date = reservation.checkinDate;
+        reservations[date] = reservations[date] ? [...reservations[date], reservation] : [reservation];
+        return reservations;
+      }, {} as {[key: string]: Reservation[]}) 
+    )
+  }
+
   loadReservations = async () => {
     this.loadingInitial = true;
     try {
