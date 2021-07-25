@@ -26,8 +26,14 @@ export default function HomePage() {
             {t('bGoDashboard')}
         </Button>
 
+        
+
        <LanguageSelector/>
+       <Button as={Link} to={'/login'} size='huge' inverted>
+          Take me to login
+        </Button>
       </Container>
+      
      
         
     </Segment>
