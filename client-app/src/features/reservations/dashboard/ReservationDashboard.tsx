@@ -15,7 +15,7 @@ export default observer(function ReservationDashboard() {
   }, [reservertionRegistry.size, loadReservations]);
 
   if (reservationStore.loadingInitial)
-    return <LoadingComponent content="Loading app" />;
+    return <LoadingComponent content="Loading reservations..." />;
 
   return (
     <Grid>

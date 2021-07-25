@@ -1,8 +1,11 @@
+import { UserFormValues } from './../models/user';
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
 import { Reservation } from "../models/reservation";
+import { User } from "../models/user";
 import { store } from "../stores/store";
+import { request } from 'http';
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -11,6 +14,12 @@ const sleep = (delay: number) => {
 };
 
 axios.defaults.baseURL = "http://localhost:5000/api";
+
+axios.interceptors.request.use(config => {
+  const token = store.commonStore.token;
+  if(token) config.headers.Authorization = `Bearer ${token}`
+  return config
+})
 
 axios.interceptors.response.use(
   async (response) => {
@@ -74,8 +83,15 @@ const Reservations = {
   delete: (id: string) => axios.delete<void>(`/reservations/${id}`),
 };
 
+const Account = {
+  current: () => requests.get<User>('/account'),
+  login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+  register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+}
+
 const agent = {
   Reservations,
+  Account
 };
 
 export default agent;
