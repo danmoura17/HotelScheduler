@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { i18n } from "../../translations/i18n";
-import { Button, Container, Menu, Flag } from "semantic-ui-react";
+import { Button, Container, Menu } from "semantic-ui-react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import LanguageSelector from "../../features/translations/LanguageSelector";
@@ -21,6 +19,7 @@ export default function NavBar() {
           HotelScheduler
         </Menu.Item>
         <Menu.Item as={NavLink} to='/reservations' name={t("tReservations")} />
+        <Menu.Item as={NavLink} to='/errors' name={t("Errors")} />
         <Menu.Item>
           <Button as={NavLink} to='/createReservation' positive content={t("bCreateReservation")} />
         </Menu.Item>

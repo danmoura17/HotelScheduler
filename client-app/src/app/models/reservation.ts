@@ -1,6 +1,6 @@
 export interface Reservation {
     id: string;
-    reservationDate: string;
-    checkinDate: string;
-    checkoutDate: string;
+    reservationDate: Date | null;
+    checkinDate: Date | null;
+    checkoutDate: Date | null;
 }

@@ -1,9 +1,7 @@
-import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Button, Container, Flag, Header, Image, Menu, Segment } from "semantic-ui-react";
+import { Button, Container, Header, Image, Segment } from "semantic-ui-react";
 import { ExampleComponent } from "../translations/ExampleCompontent";
-import { i18n } from "../../translations/i18n";
 import LanguageSelector from "../translations/LanguageSelector";
 
 export default function HomePage() {

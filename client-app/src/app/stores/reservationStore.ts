@@ -1,13 +1,15 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Reservation } from "../models/reservation";
+import {format} from 'date-fns'
+
 
 export default class ReservationStore {
   reservertionRegistry = new Map<string, Reservation>();
   selectedReservation: Reservation | undefined = undefined;
   editMode = false;
   loading = false;
-  loadingInitial = true;
+  loadingInitial = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,14 +17,14 @@ export default class ReservationStore {
 
   get reservationsByDate() {
     return Array.from(this.reservertionRegistry.values()).sort(
-      (a, b) => Date.parse(a.reservationDate) - Date.parse(b.reservationDate)
+      (a, b) => a.checkinDate!.getTime() - b.checkinDate!.getTime()
     );
   }
 
   get groupedReservations () {
     return Object.entries(
       this.reservationsByDate.reduce((reservations, reservation)=>{
-        const date = reservation.checkinDate;
+        const date = format(reservation.checkinDate!, 'dd MMMM yyyy');
         reservations[date] = reservations[date] ? [...reservations[date], reservation] : [reservation];
         return reservations;
       }, {} as {[key: string]: Reservation[]}) 
@@ -66,9 +68,9 @@ export default class ReservationStore {
   };
 
   private setReservation = (reservation: Reservation) => {
-    reservation.reservationDate = reservation.reservationDate.split("T")[0];
-    reservation.checkinDate = reservation.checkinDate.split("T")[0];
-    reservation.checkoutDate = reservation.checkoutDate.split("T")[0];
+    reservation.reservationDate = new Date(reservation.reservationDate!);
+    reservation.checkinDate = new Date(reservation.checkinDate!);
+    reservation.checkoutDate = new Date(reservation.checkoutDate!);
     this.reservertionRegistry.set(reservation.id, reservation);
   };
 

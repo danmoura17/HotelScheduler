@@ -1,12 +1,15 @@
 import { createContext, useContext } from "react"
+import CommonStore from "./commonStore"
 import ReservationStore from "./reservationStore"
 
 interface Store {
-    reservationStore: ReservationStore
+    reservationStore: ReservationStore;
+    commonStore: CommonStore;
 }
 
 export const store: Store = {
-    reservationStore: new ReservationStore()
+    reservationStore: new ReservationStore(),
+    commonStore: new CommonStore()
 }
 
 export const StoreContext = createContext(store)

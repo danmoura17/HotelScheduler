@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Link, useHistory, useParams } from "react-router-dom";
 import LoadingComponent from "../../../app/layouts/loadingComponent";
 import { v4 as uuid } from "uuid";
+import { Reservation } from "../../../app/models/reservation";
 
 
 export default observer(function ReservationForm() {
@@ -16,11 +17,11 @@ export default observer(function ReservationForm() {
     reservationStore;
   const { id } = useParams<{ id: string }>();
 
-  const [reservation, setReservation] = useState({
+  const [reservation, setReservation] = useState<Reservation>({
     id: "",
-    reservationDate: "",
-    checkinDate: "",
-    checkoutDate: "",
+    reservationDate: null,
+    checkinDate: null,
+    checkoutDate: null,
   });
 
   useEffect(()=> {

@@ -1,5 +1,3 @@
-import moment from "moment";
-import React from "react";
 import Calendar from "react-calendar";
 import { useTranslation } from "react-i18next";
 import { Header, Menu } from "semantic-ui-react";

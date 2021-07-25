@@ -2,6 +2,8 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { Segment, Grid, Icon } from "semantic-ui-react";
 import { Reservation } from "../../../app/models/reservation";
+import {format} from 'date-fns'
+
 
 interface Props {
   reservation: Reservation;
@@ -18,7 +20,7 @@ export default observer(function ReservationDetailedInfo({
             <Icon size="large" color="teal" name="info" />
           </Grid.Column>
           <Grid.Column width={11}>
-            <p>{reservation.checkoutDate}</p>
+            <p>{format(reservation.checkinDate!, 'dd MMMM yyyy')}</p>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -28,7 +30,7 @@ export default observer(function ReservationDetailedInfo({
             <Icon name="calendar" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={11}>
-            <span>{reservation.checkinDate}</span>
+            <span>{format(reservation.checkinDate!, 'dd MMMM yyyy')}</span>
           </Grid.Column>
         </Grid>
       </Segment>

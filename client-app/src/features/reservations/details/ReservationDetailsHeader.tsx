@@ -1,7 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
+import { Link } from 'react-router-dom';
 import {Button, Header, Item, Segment, Image} from 'semantic-ui-react'
 import {Reservation} from "../../../app/models/reservation";
+import {format} from 'date-fns'
+
 
 const reservationImageStyle = {
     filter: 'brightness(30%)'
@@ -31,10 +34,10 @@ export default observer (function reservationDetailedHeader({reservation}: Props
                             <Item.Content>
                                 <Header
                                     size='huge'
-                                    content={reservation.checkinDate}
+                                    content={format(reservation.checkinDate!, 'dd MMMM yyyy')}
                                     style={{color: 'white'}}
                                 />
-                                <p>{reservation.checkinDate}</p>
+                                <p>{format(reservation.checkinDate!, 'dd MMMM yyyy')}</p>
                                 <p>
                                     Hosted by <strong>Daniel</strong>
                                 </p>
@@ -46,7 +49,7 @@ export default observer (function reservationDetailedHeader({reservation}: Props
             <Segment clearing attached='bottom'>
                 <Button color='teal'>Join reservation</Button>
                 <Button>Cancel reservation</Button>
-                <Button color='orange' floated='right'>
+                <Button as={Link} to={`/manage/${reservation.id}`} color='orange' floated='right'>
                     Manage Reservation
                 </Button>
             </Segment>
