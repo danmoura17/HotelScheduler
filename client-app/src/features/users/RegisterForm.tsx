@@ -18,8 +18,6 @@ export default observer(function RegisterForm() {
             validationSchema={Yup.object({
                 displayName: Yup.string().required(),
                 username: Yup.string().required(),
-                country: Yup.string().required(),
-                city: Yup.string().required(),
                 email: Yup.string().required().email(),
                 password: Yup.string().required(),
             }
@@ -31,8 +29,6 @@ export default observer(function RegisterForm() {
                     <Header as='h2' content='Register to HotelScheduler' color='teal' textAlign='center'/>
                     <MyTextInput name='displayName' placeholder='Name'/>
                     <MyTextInput name='username' placeholder='Username'/>
-                    <MyTextInput name='country' placeholder='Country'/>
-                    <MyTextInput name='city' placeholder='City'/>
                     <MyTextInput name='email' placeholder='Email'/> 
                     <MyTextInput name='password' placeholder='Password' type='password'/>
                     

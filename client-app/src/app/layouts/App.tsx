@@ -15,6 +15,7 @@ import { useStore } from "../stores/store";
 import { useEffect } from "react";
 import LoadingComponent from "./loadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
+import ReservationDelete from "../../features/reservations/dashboard/ReservationDelete";
 
 function App() {
   const location = useLocation();
@@ -56,6 +57,11 @@ function App() {
                   key={location.key}
                   path={["/createReservation", "/manage/:id"]}
                   component={ReservationForm}
+                />
+                <Route
+                  key={location.key}
+                  path={["/deleteReservation", "/delete/:id"]}
+                  component={ReservationDelete}
                 />
                 <Route path="/errors" component={TestErrors} />
                 <Route path="/server-error" component={ServerError} />

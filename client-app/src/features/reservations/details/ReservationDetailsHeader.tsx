@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {Button, Header, Item, Segment, Image} from 'semantic-ui-react'
 import {Reservation} from "../../../app/models/reservation";
 import {format} from 'date-fns'
+import reservationStore from '../../../app/stores/reservationStore';
+import { useStore } from '../../../app/stores/store';
 
 
 const reservationImageStyle = {
@@ -23,7 +25,11 @@ interface Props {
     reservation: Reservation
 }
 
+
+
+
 export default observer (function reservationDetailedHeader({reservation}: Props) {
+
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
@@ -47,8 +53,7 @@ export default observer (function reservationDetailedHeader({reservation}: Props
                 </Segment>
             </Segment>
             <Segment clearing attached='bottom'>
-                <Button color='teal'>Join reservation</Button>
-                <Button>Cancel reservation</Button>
+                <Button as={Link} to={`/delete/${reservation.id}`}>Cancel reservation</Button>
                 <Button as={Link} to={`/manage/${reservation.id}`} color='orange' floated='right'>
                     Manage Reservation
                 </Button>

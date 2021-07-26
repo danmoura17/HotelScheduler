@@ -9,7 +9,7 @@ namespace Application.Reservations
     {
         public ReservationValidator()
         {
-            RuleFor(x => x.CheckinDate).NotEmpty().LessThan(d => DateTime.Now);
+            RuleFor(x => x.CheckinDate).NotEmpty();
             RuleFor(x => x.CheckoutDate).NotEmpty();
             RuleFor(x => x.ReservationDate).NotEmpty();
         }
