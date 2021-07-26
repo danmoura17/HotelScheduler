@@ -43,8 +43,13 @@ export default class ReservationStore {
 
     var reservedDatas:string[] = []; 
     x.forEach(element => {
-      var onlyDate = this.getOnlyDate(element.checkinDate!);
-      reservedDatas.push(onlyDate)
+      var reservatedDays = this.getAllDatesBetweenTwoDates(element.checkinDate!, element.checkoutDate!);
+      
+      reservatedDays.forEach(element => {
+        reservedDatas.push(this.getOnlyDate(element))
+      });
+
+      
     });
 
     var allDatasInMonth:string[] = [];
@@ -53,10 +58,6 @@ export default class ReservationStore {
       var onlyDate = this.getOnlyDate(element);
       allDatasInMonth.push(onlyDate)
     });
-
-
-    console.log(allDatasInMonth)
-    console.log(reservedDatas)
 
 
 
