@@ -49,6 +49,12 @@ export default observer(function ReservationForm() {
       loadReservation(id).then((reservation) => setReservation(reservation!));
   }, [id, loadReservation]);
 
+    let today = new Date()
+    let tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate()+1)
+    let oneMonthFuture = new Date()
+    oneMonthFuture.setMonth(oneMonthFuture.getMonth() + 1)
+
   function handleFormSubmit(reservation: Reservation) {
     if (reservation.id.length === 0) {
       let newReservation = {
@@ -83,16 +89,22 @@ export default observer(function ReservationForm() {
                 placeholderText="Date"
                 name="reservationDate"
                 dateFormat="MMMM d, yyyy h:mm aa"
+                minDate={tomorrow}
+                maxDate={oneMonthFuture}
               />
               <MyDateInput
                 placeholderText="Date"
                 name="checkinDate"
                 dateFormat="MMMM d, yyyy h:mm aa"
+                minDate={tomorrow}
+                maxDate={oneMonthFuture}
               />
               <MyDateInput
                 placeholderText="Date"
                 name="checkoutDate"
                 dateFormat="MMMM d, yyyy h:mm aa"
+                minDate={tomorrow}
+                maxDate={oneMonthFuture}
               />
               <Button
                 disabled={isSubmitting || !dirty || !isValid}

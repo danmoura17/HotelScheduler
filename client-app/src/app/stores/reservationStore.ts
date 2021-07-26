@@ -15,6 +15,17 @@ export default class ReservationStore {
     makeAutoObservable(this);
   }
 
+
+  get getIntervalDate(){
+
+    let today = new Date()
+    let tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate()+1)
+    let oneMonthFuture = new Date()
+    oneMonthFuture.setMonth(oneMonthFuture.getMonth() + 1)
+
+    return {today:oneMonthFuture}
+  }
   
 
   get availableDate(){
