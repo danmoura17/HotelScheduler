@@ -15,7 +15,7 @@ export default function ReservationListItem({ reservation }: Props) {
       <Segment>
         <Item.Group>
           <Item>
-            <Item.Image size="tiny" circular src="/assets/user.png" />
+            <Item.Image size="tiny" circular src="https://react.semantic-ui.com/images/avatar/large/matthew.png" />
             <Item.Content>
               <Item.Header as={Link} to={`/reservations/${reservation.id}`}>
               {format(reservation.checkinDate!, 'dd MMMM yyyy')}

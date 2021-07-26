@@ -33,7 +33,7 @@ export default observer (function reservationDetailedHeader({reservation}: Props
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{padding: '0'}}>
-                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' fluid style={reservationImageStyle}/>
+                <Image src='http://www.nobretur.com.br/images/resized/tourist_packages/15245879535adf5db102303.jpg?s=medium' fluid style={reservationImageStyle}/>
                 <Segment style={reservationImageTextStyle} basic>
                     <Item.Group>
                         <Item>

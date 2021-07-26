@@ -37,7 +37,7 @@ export default observer(function NavBar() {
         <LanguageSelector />
       </Container>
       <Menu.Item position="right" style={{marginRight: 100}}>
-        <Image src={user?.image || "/assets/user.png"} avatar spaced="right" />
+        <Image src={user?.image || "https://react.semantic-ui.com/images/avatar/large/matthew.png"} avatar spaced="right" />
         <Dropdown pointing="top left" text={user?.displayName}>
           <Dropdown.Menu>
             <Dropdown.Item
