@@ -6,6 +6,7 @@ import { useStore } from "../../app/stores/store";
 import { ExampleComponent } from "../translations/ExampleCompontent";
 import LanguageSelector from "../translations/LanguageSelector";
 import LoginForm from "../users/LoginForm";
+import RegisterForm from "../users/RegisterForm";
 
 export default observer(function HomePage() {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ export default observer(function HomePage() {
           <Button onClick={() => modalStore.openModal(<LoginForm/>)} size="huge" inverted>
             Take me to login
           </Button>
-          <Button onClick={() => modalStore.openModal(<h1></h1>)} size="huge" inverted>
+          <Button onClick={() => modalStore.openModal(<RegisterForm/>)} size="huge" inverted>
             Register
           </Button>
           </>
