@@ -15,6 +15,60 @@ export default class ReservationStore {
     makeAutoObservable(this);
   }
 
+  
+
+  get availableDate(){
+    let today = new Date()
+    let tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate()+1)
+    let oneMonthFuture = new Date()
+    oneMonthFuture.setMonth(oneMonthFuture.getMonth() + 1)
+
+    var arr = this.getAllDatesBetweenTwoDates(tomorrow, oneMonthFuture);
+
+    var x = Array.from(this.reservertionRegistry.values()).sort(
+      (a, b) => a.checkinDate!.getTime() - b.checkinDate!.getTime()
+    )
+
+    var reservedDatas:string[] = []; 
+    x.forEach(element => {
+      var onlyDate = this.getOnlyDate(element.checkinDate!);
+      reservedDatas.push(onlyDate)
+    });
+
+    var allDatasInMonth:string[] = [];
+
+    arr.forEach(element => {
+      var onlyDate = this.getOnlyDate(element);
+      allDatasInMonth.push(onlyDate)
+    });
+
+
+    console.log(allDatasInMonth)
+    console.log(reservedDatas)
+
+
+
+    let filtered = allDatasInMonth.filter( function( el ) {
+      return reservedDatas.indexOf( el ) < 0;
+    } );
+
+    // console.log(filtered)
+
+    return filtered;
+  }
+
+  private getOnlyDate(date: Date) {
+    return new Date(date).toDateString();
+  }
+
+  private getAllDatesBetweenTwoDates(start: Date, end: Date) {
+    for (var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+      arr.push(new Date(dt));
+    }
+    return arr;
+  }
+
   get reservationsByDate() {
     return Array.from(this.reservertionRegistry.values()).sort(
       (a, b) => a.checkinDate!.getTime() - b.checkinDate!.getTime()
