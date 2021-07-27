@@ -17,6 +17,7 @@ import { Formik, useFormikContext, getIn } from "formik";
 import * as Yup from "yup";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import ValidationMessageError from "../../errors/ErrorMessage";
+import MyTextInput from "../../../app/common/form/MyTextInput";
 
 export default observer(function ReservationForm() {
   const history = useHistory();
@@ -40,11 +41,24 @@ export default observer(function ReservationForm() {
     reservationDate: null,
     checkinDate: null,
     checkoutDate: null,
+    attendedBy: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    country: "",
+    email: "",
+    phone: ""
   });
 
   const validationSchema = Yup.object({
     checkinDate: Yup.string().required("Checkin date is required").nullable(),
     checkoutDate: Yup.string().required("Checkout date is required").nullable(),
+    email: Yup.string().required("Email is required").email().nullable(),
+    firstName: Yup.string().required("First name is required").nullable(),
+    lastName: Yup.string().required("Last name is required").nullable(),
+    country: Yup.string().required("Country is required").nullable(),
+    city: Yup.string().required("City is required").nullable(),
+    phone: Yup.string().required("Phone number is required").nullable(),
   });
 
   useEffect(() => {
@@ -135,6 +149,7 @@ export default observer(function ReservationForm() {
       let newReservation = {
         ...reservation,
         id: uuid(),
+        attendedBy: "Daniel",
         reservationDate: today,
       };
       createReservation(newReservation).then(() =>
@@ -159,7 +174,7 @@ export default observer(function ReservationForm() {
   return (
     <>
       <Segment clearing>
-        <Header content="Reservation Details" sub color="teal" />
+        
         <Formik
           validationSchema={validationSchema}
           enableReinitialize
@@ -170,6 +185,15 @@ export default observer(function ReservationForm() {
 
             
             <Form onSubmit={handleSubmit} autoComplete="off">
+              <Header content="User Details" sub color="teal" />
+              <MyTextInput name='firstName' placeholder='First Name'/>
+              <MyTextInput name='lastName' placeholder='Last Name'/>
+              <MyTextInput name='country' placeholder='Country'/>
+              <MyTextInput name='city' placeholder='City'/>
+              <MyTextInput name='email' placeholder='Email'/>
+              <MyTextInput name='phone' placeholder='Phone'/>
+
+              <Header content="Reservation Details" sub color="teal" />
               <MyDateInput
                 placeholderText="Checkin Date"
                 name="checkinDate"

@@ -3,5 +3,11 @@ export const TRANSLATIONS_EN = {
     tReservations:"Reservations",
     bCreateReservation:"Create Reservation",
     locale:'en',
-    bGoDashboard: 'Take me to the Reservations!'
+    bGoDashboard: 'Take me to the Reservations!',
+    bLogin: 'Sign in',
+    bRegister: 'Register',
+    lCheckin:'Check-in',
+    lCheckout: 'Check-out',
+    lEmail: 'Endereço de e-mail',
+    lPassword: 'Senha',
    };

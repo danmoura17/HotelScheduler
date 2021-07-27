@@ -40,12 +40,13 @@ export default observer (function reservationDetailedHeader({reservation}: Props
                             <Item.Content>
                                 <Header
                                     size='huge'
-                                    content={format(reservation.checkinDate!, 'dd MMMM yyyy')}
+                                    content={reservation.firstName}
                                     style={{color: 'white'}}
                                 />
-                                <p>{format(reservation.checkinDate!, 'dd MMMM yyyy')}</p>
+                                <p>Checkin: {format(reservation.checkinDate!, 'dd MMMM yyyy')}</p>
+                                <p>Checkout: {format(reservation.checkoutDate!, 'dd MMMM yyyy')}</p>
                                 <p>
-                                    Hosted by <strong>Daniel</strong>
+                                    Attended by <strong>{reservation.attendedBy}</strong>
                                 </p>
                             </Item.Content>
                         </Item>

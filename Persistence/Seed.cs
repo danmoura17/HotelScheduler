@@ -16,7 +16,8 @@ namespace Persistence
                 var users = new List<AppUser>{
                     new AppUser{DisplayName = "Alex",UserName="alex", Email="alex@test.com"},
                     new AppUser{DisplayName = "Daniel",UserName="daniel", Email="daniel@test.com"},
-                    new AppUser{DisplayName = "Mary",UserName="mary", Email="mary@test.com"}
+                    new AppUser{DisplayName = "Noémie",UserName="noemie", Email="noemie@test.com"},
+
                 };
 
                 foreach (var user in users)
@@ -34,49 +35,27 @@ namespace Persistence
                     ReservationDate = DateTime.Now.AddDays(-1),
                     CheckinDate = DateTime.Now,
                     CheckoutDate = DateTime.Now.AddDays(1),
+                    AttendedBy = "Daniel",
+                    FirstName = "Peter",
+                    LastName = "Parker",
+                    City="New York",
+                    Country="USA",
+                    Email="peter@test.com",
+                    Phone="123456789"
                 },
                 new Reservation
                 {
                     ReservationDate = DateTime.Now,
                     CheckinDate = DateTime.Now.AddDays(1),
                     CheckoutDate = DateTime.Now.AddDays(2),
+                    AttendedBy = "Alex",
+                    FirstName = "Arsene",
+                    LastName = "Lupin",
+                    City="Paris",
+                    Country="France",
+                    Email="lupin@test.com",
+                    Phone="987654321"
                 },
-                new Reservation
-                {
-                    ReservationDate = DateTime.Now.AddDays(1),
-                    CheckinDate = DateTime.Now.AddDays(2),
-                    CheckoutDate = DateTime.Now.AddDays(3),
-                },
-                new Reservation
-                {
-                    ReservationDate = DateTime.Now.AddDays(2),
-                    CheckinDate = DateTime.Now.AddDays(3),
-                    CheckoutDate = DateTime.Now.AddDays(4),
-                },
-                new Reservation
-                {
-                    ReservationDate = DateTime.Now.AddDays(3),
-                    CheckinDate = DateTime.Now.AddDays(4),
-                    CheckoutDate = DateTime.Now.AddDays(5),
-                },
-                new Reservation
-                {
-                    ReservationDate = DateTime.Now.AddDays(4),
-                    CheckinDate = DateTime.Now.AddDays(5),
-                    CheckoutDate = DateTime.Now.AddDays(6),
-                },
-                new Reservation
-                {
-                    ReservationDate = DateTime.Now.AddDays(5),
-                    CheckinDate = DateTime.Now.AddDays(6),
-                    CheckoutDate = DateTime.Now.AddDays(7),
-                },
-                new Reservation
-                {
-                    ReservationDate = DateTime.Now.AddDays(6),
-                    CheckinDate = DateTime.Now.AddDays(7),
-                    CheckoutDate = DateTime.Now.AddDays(8),
-                }
             };
 
             await context.Reservations.AddRangeAsync(reservations);

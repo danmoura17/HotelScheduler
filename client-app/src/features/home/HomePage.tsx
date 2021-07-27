@@ -27,7 +27,6 @@ export default observer(function HomePage() {
         </Header>
         {userStore.isLoggedIn ? (
           <>
-            <Header>Bem vindo </Header>
             <Button as={Link} to={"/reservations"} size="huge" inverted>
               {t("bGoDashboard")}
             </Button>
@@ -35,10 +34,10 @@ export default observer(function HomePage() {
         ) : (
           <>
           <Button onClick={() => modalStore.openModal(<LoginForm/>)} size="huge" inverted>
-            Take me to login
+          {t("bLogin")}
           </Button>
           <Button onClick={() => modalStore.openModal(<RegisterForm/>)} size="huge" inverted>
-            Register
+          {t("bRegister")}
           </Button>
           </>
           

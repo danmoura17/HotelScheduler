@@ -18,17 +18,18 @@ export default function ReservationListItem({ reservation }: Props) {
             <Item.Image size="tiny" circular src="https://react.semantic-ui.com/images/avatar/large/matthew.png" />
             <Item.Content>
               <Item.Header as={Link} to={`/reservations/${reservation.id}`}>
-              Checkin Date: {format(reservation.checkinDate!, 'dd MMMM yyyy')}
+              {reservation.firstName} {reservation.lastName}
               </Item.Header>
+              <Item.Meta> <Icon name="clock" /> Checkin: {format(reservation.checkinDate!, 'dd MMMM yyyy')}</Item.Meta>
+              <Item.Meta> <Icon name="clock" /> Checkout: {format(reservation.checkinDate!, 'dd MMMM yyyy')}</Item.Meta>
             </Item.Content>
-            <Item.Description>Hosted by Daniel</Item.Description>
+            <Item.Description>Attended by {reservation.attendedBy}</Item.Description>
           </Item>
         </Item.Group>
       </Segment>
       <Segment>
         <span>
-          <Icon name="clock" /> Checkout Date: {format(reservation.checkinDate!, 'dd MMMM yyyy')}
-          <Icon name="marker" /> Brazil
+          <Icon name="marker" /> {reservation.country} - {reservation.city}
         </span>
       </Segment>
       <Segment secondary>Reserved in:</Segment>
