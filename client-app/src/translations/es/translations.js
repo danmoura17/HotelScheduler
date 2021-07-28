@@ -23,7 +23,11 @@ export const TRANSLATIONS_ES = {
     bErrors: 'Errores',
     bAttendedBy: 'Atendido por ',
     "dates": {
-        "fullDate": "The date is {{ date, short }}",
+        "shorReservation": "{{ reservationDate, short }}",
+        "fullDatein": "{{ checkinDate, complete }}",
+        "fullDateout": "{{ checkoutDate, complete }}",
+        "shortDatein": "{{ checkinDate, short }}",
+        "shortDateout": "{{ checkoutDate, short }}",
         "localisedDate": "{{ checkinDate, long }}",
         "localisedDateout": "{{ checkoutDate, long }}",
         "weekDay": "Today is a {{ date, EEEE }}.",
@@ -45,5 +49,7 @@ export const TRANSLATIONS_ES = {
     fAllReservations:'Todas las reservas',
     fFutureReservations:'Reservas futuras',
     fCancelReservations:'Reservas canceladas',
+    eInvalidEmailPassword:'Correo electrónico o contraseña no válidos',
+
 
    };

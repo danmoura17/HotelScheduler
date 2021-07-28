@@ -14,7 +14,9 @@ export default observer(function ReservationDetailedInfo({
 }: Props) {
   const { t } = useTranslation();
 
-  const date = reservation.checkinDate
+  const checkinDate = reservation.checkinDate
+  const checkoutDate = reservation.checkoutDate
+  const reservationDate = reservation.reservationDate
 
   return (
     <Segment.Group>
@@ -58,12 +60,6 @@ export default observer(function ReservationDetailedInfo({
           </Grid.Column>
           <Grid.Column width={11}>
             <span>{reservation.phone} </span>
-            <p>
-                  {t("lCheckout")}:{" "}
-                  
-                </p>
-                {/* <p>{t("dates.localisedDate", { oi })}</p> */}
-                <p>{t("dates.localisedDate", { date })}</p>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -75,19 +71,19 @@ export default observer(function ReservationDetailedInfo({
           <Grid.Column width={11}>
             <List>
               <List.Item>
-                <span>Checkin: {format(reservation.checkinDate!, "dd MMMM yyyy")}</span>
+                <span> {t("lCheckin")}:{" "} <strong>{t("dates.shortDatein", { checkinDate })}</strong></span>
               </List.Item>
               <List.Item>
-                <span>Checkout: {format(reservation.checkoutDate!, "dd MMMM yyyy")}</span>
+                <span>{t("lCheckout")}:{" "}<strong>{t("dates.shortDateout", { checkoutDate })}</strong></span>
               </List.Item>
               <List.Item>
                 
               </List.Item>
               <List.Item>
-                <span>Attendee: {reservation.attendedBy}</span>
+                <span> {t("bAttendedBy")}: <strong>{reservation.attendedBy}</strong> </span>
               </List.Item>
               <List.Item>
-                <span>Reserved: {format(reservation.reservationDate!, "dd MMMM yyyy")}</span>
+                <span>{t("lReservedIn")} <strong>{t("dates.shorReservation", { reservationDate })}</strong></span>
               </List.Item>
               
             </List>

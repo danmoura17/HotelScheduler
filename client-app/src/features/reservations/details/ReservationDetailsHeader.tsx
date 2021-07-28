@@ -26,7 +26,9 @@ export default observer(function reservationDetailedHeader({
   reservation,
   translation,
 }: Props) {
-  const date = reservation.checkinDate!;
+  const checkinDate = reservation.checkinDate!;
+  const checkoutDate= reservation.checkoutDate!;
+
 
   return (
     <Segment.Group>
@@ -46,20 +48,13 @@ export default observer(function reservationDetailedHeader({
                   style={{ color: "white" }}
                 />
 
-                <p>{translation("dates.fullDate", { date })}</p>
-                <p>{translation("dates.localisedDate", { date })}</p>
-                <p>{translation("dates.weekDay", { date })}</p>
-                <p>{translation("dates.postedOn", { date })}</p>
-                <p>{translation("dates.fullDateComplete", { date })}</p>
-                <p>{translation("dates.postedOn", { date })}</p>
-
                 <p>
                   {translation("lCheckin")}:{" "}
-                  {translation("dates.localisedDate", { date })}
+                  {translation("dates.fullDatein", { checkinDate })}
                 </p>
                 <p>
                   {translation("lCheckout")}:{" "}
-                  {format(reservation.checkoutDate!, "dd MMMM yyyy")}
+                  {translation("dates.fullDateout", { checkoutDate })}
                 </p>
                 <p>
                   {translation("bAttendedBy")}{" "}
