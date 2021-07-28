@@ -34,7 +34,7 @@ export const TRANSLATIONS_ES = {
         "postedOn": "{{ date, relative }} (that is {{ date, ago }}).",
         "fullDateComplete":"The date is {{ date, complete }}",
         "fullDateBig": '{{ date, big }}',
-        "reservedDate": '{{ reservedDate, relative }} ( {{ reservedDate, ago }}).'
+        "reservedDate": '{{ reservedDate, long }}.'
     },
     bViewReservation: 'Ver reserva',
     vDeleteReservation:'Cancelar reserva',
@@ -52,5 +52,19 @@ export const TRANSLATIONS_ES = {
     eInvalidEmailPassword:'Correo electrónico o contraseña no válidos',
     lDelete: '¿Quieres eliminar esta reserva?',
     bDelete: 'Eliminar',
+    eCheckin: 'Se requiere la fecha de registro',
+    eCheckout: 'Se requiere la fecha de pago',
+    eEmail: 'Correo electronico es requerido',
+    eFirstName: 'Se requiere el primer nombre',
+    eLastName: 'Se requiere apellido',
+    eCountry: 'El país es obligatorio',
+    eCity: 'Ciudad es requerida',
+    ePhoneNumber: 'Se requiere el número de teléfono',
+    eDisplayName: 'Se requiere el nombre',
+    eUserName: 'Se requiere nombre de usuario',
+    ePassword: 'se requiere contraseña',
+    eLongInterval: 'No es posible hacer una reserva por más de 3 días.',
+    eOutBeforeInt: 'La fecha de salida no puede ser anterior a la fecha de registro.',
+    eUnavailableDate: 'Fecha no disponible. Consulte las fechas a continuación:', 
 
    };

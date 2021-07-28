@@ -14,8 +14,8 @@ export const TRANSLATIONS_PT= {
     lPhone:'Telefone',
     lPassword: 'Senha',
     lName:'Nome',
-    lFirstName: 'First Name',
-    lLastName: 'Last Name',
+    lFirstName: 'Nome',
+    lLastName: 'Sobrenome',
     lCountry:'País',
     lCity:'Cidade',
     lUsername:'Nome de usuário',
@@ -36,7 +36,7 @@ export const TRANSLATIONS_PT= {
         "postedOn": "{{ date, relative }} (that is {{ date, ago }}).",
         "fullDateComplete":"The date is {{ date, complete }}",
         "fullDateBig": '{{ date, big }}',
-        "reservedDate": '{{ reservedDate, relative }} ( {{ reservedDate, ago }}).'
+        "reservedDate": '{{ reservedDate, long }}.'
 
     },
     bViewReservation: 'Visualizar reserva',
@@ -55,4 +55,18 @@ export const TRANSLATIONS_PT= {
     eInvalidEmailPassword:'Email ou senha inválida',
     lDelete: 'Deseja deletar essa reserva?',
     bDelete: 'Cancelar',
+    eCheckin: 'A data de check-in é obrigatória',
+    eCheckout: 'A data de checkout é obrigatória',
+    eEmail: 'E-mail é obrigatório',
+    eFirstName: 'O primeiro nome é obrigatório',
+    eLastName: 'O sobrenome é obrigatório',
+    eCountry: 'País é obrigatório',
+    eCity: 'Cidade é obrigatória',
+    ePhoneNumber: 'Número de telefone obrigatório',
+    eDisplayName: 'O nome é obrigatório',
+    eUserName: 'Nome de usuário é requerido',
+    ePassword: 'Senha requerida',
+    eLongInterval: 'Não é possível fazer uma reserva para mais de 3 dias',
+    eOutBeforeInt: 'A data de check-in não pode ser anterior à data de check-in',
+    eUnavailableDate: 'Data indisponível. Verifique as datas abaixo:', 
    };

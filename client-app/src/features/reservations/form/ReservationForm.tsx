@@ -35,9 +35,8 @@ export default observer(function ReservationForm() {
   } = reservationStore;
   const { id } = useParams<{ id: string }>();
 
-  const [errors, setErrors] = useState('');
-
-
+  const [errors, setErrors] = useState("");
+  const [dateChanged, setDateChanged] = useState(false);
 
   const [reservation, setReservation] = useState<Reservation>({
     id: "",
@@ -50,23 +49,28 @@ export default observer(function ReservationForm() {
     city: "",
     country: "",
     email: "",
-    phone: ""
+    phone: "",
   });
 
   const validationSchema = Yup.object({
-    checkinDate: Yup.string().required("Checkin date is required").nullable(),
-    checkoutDate: Yup.string().required("Checkout date is required").nullable(),
-    email: Yup.string().required("Email is required").email().nullable(),
-    firstName: Yup.string().required("First name is required").nullable(),
-    lastName: Yup.string().required("Last name is required").nullable(),
-    country: Yup.string().required("Country is required").nullable(),
-    city: Yup.string().required("City is required").nullable(),
-    phone: Yup.string().required("Phone number is required").nullable(),
+    checkinDate: Yup.string().required(t('eCheckin')).nullable(),
+    checkoutDate: Yup.string().required(t('eCheckout')).nullable(),
+    email: Yup.string().required(t('eEmail')).email().nullable(),
+    firstName: Yup.string().required(t('eFirstName')).nullable(),
+    lastName: Yup.string().required(t('eLastName')).nullable(),
+    country: Yup.string().required(t('eCountry')).nullable(),
+    city: Yup.string().required(t('eCity')).nullable(),
+    phone: Yup.string().required(t('ePhoneNumber')).nullable(),
   });
 
   useEffect(() => {
-    if (id)
-      loadReservation(id).then((reservation) => setReservation(reservation!));
+    if (id) {
+      loadReservation(id).then((reservation) => {
+        setReservation(reservation!)
+      });
+    }
+    
+
   }, [id, loadReservation]);
 
   let today = new Date();
@@ -83,68 +87,57 @@ export default observer(function ReservationForm() {
 
   // a and b are javascript Date objects
   function dateDiffInDays(a: any, b: any) {
-  // Discard the time and time-zone information.
-  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 
-  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
-}
-
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+  }
 
   function handleTest(reservation: Reservation) {
-
-    var startdateMoment = reservation.checkinDate!
-    var enddateMoment = reservation.checkoutDate!
-
-    console.log(reservation.checkinDate!)
-    console.log(reservation.checkoutDate!)
+    var startdateMoment = reservation.checkinDate!;
+    var enddateMoment = reservation.checkoutDate!;
 
     let difference = dateDiffInDays(startdateMoment, enddateMoment);
-  
-    if(difference >= 3) {
-      setErrors("It is not possible to make a reservation for more than 3 days")
-    } else {
 
-      if(new Date(startdateMoment) > new Date(enddateMoment)){
-        setErrors("Checkout date can not be before checkin date")
+    if (difference >= 3) {
+      setErrors(t('eLongInterval'));
+    } else {
+      if (new Date(startdateMoment) > new Date(enddateMoment)) {
+        setErrors(t('eOutBeforeInt'));
       } else {
 
-        for (var reservationDates = [], dt = new Date(reservation.checkinDate!); dt <= reservation.checkoutDate!; dt.setDate(dt.getDate() + 1)) {
+        if(!dateChanged && (id) ){
+          handleFormSubmit(reservation);
+        }
+
+        for (
+          var reservationDates = [], dt = new Date(reservation.checkinDate!);
+          dt <= reservation.checkoutDate!;
+          dt.setDate(dt.getDate() + 1)
+        ) {
           reservationDates.push(new Date(dt));
         }
-    
-        console.log(reservationDates)
-    
+
         const availableDates = availableDate;
-        console.log(reservationDates)
-    
+
         let duplicates = [];
-    
+
         for (var i = reservationDates.length - 1; i >= 0; i--) {
           for (var j = 0; j < availableDates.length; j++) {
-    
             if (getOnlyDate(reservationDates[i]) === availableDates[j]) {
-              duplicates.push(availableDates[j])
-              }
+              duplicates.push(availableDates[j]);
             }
           }
-          console.log(duplicates)
-    
-        
-    
-        if (duplicates.length !== 0) {
-          handleFormSubmit(reservation)
-        } else {
-          setErrors("Data indisponível. Verifique as datas abaixo:");
         }
 
+        if (duplicates.length !== 0) {
+          handleFormSubmit(reservation);
+        } else {
+          setErrors(t('eUnavailableDate'));
+        }
       }
-
-      
-
     }
-
-    
   }
 
   function handleFormSubmit(reservation: Reservation) {
@@ -165,76 +158,68 @@ export default observer(function ReservationForm() {
     }
   }
 
-
-  if (loading) return <LoadingComponent content={t('lLoadingReservation')} />;
-
+  if (loading) return <LoadingComponent content={t("lLoadingReservation")} />;
 
   return (
     <>
       <Segment clearing>
-        
         <Formik
           validationSchema={validationSchema}
           enableReinitialize
           initialValues={reservation}
-          onSubmit={(values, {resetForm}) => handleTest(values)}
+          onSubmit={(values, { resetForm }) => handleTest(values)}
         >
-          {({ handleSubmit, isValid, isSubmitting, dirty }) => (
-
-            
+          {({ handleSubmit, isValid, isSubmitting, dirty, }) => (
             <Form onSubmit={handleSubmit} autoComplete="off">
-              <Header content={t('lUserDetails')} sub color="teal" />
-              <MyTextInput name='firstName' placeholder={t('lFirstName')}/>
-              <MyTextInput name='lastName' placeholder={t('lLastName')}/>
-              <MyTextInput name='country' placeholder={t('lCountry')}/>
-              <MyTextInput name='city' placeholder={t('lCity')}/>
-              <MyTextInput name='email' placeholder={t('lEmail')}/>
-              <MyTextInput name='phone' placeholder={t('lPhone')}/>
+              <Header content={t("lUserDetails")} sub color="teal" />
+              <MyTextInput name="firstName" placeholder={t("lFirstName")} />
+              <MyTextInput name="lastName" placeholder={t("lLastName")} />
+              <MyTextInput name="country" placeholder={t("lCountry")} />
+              <MyTextInput name="city" placeholder={t("lCity")} />
+              <MyTextInput name="email" placeholder={t("lEmail")} />
+              <MyTextInput name="phone" placeholder={t("lPhone")} />
 
-              <Header content={t('lReservationDetails')} sub color="teal" />
+              <Header content={t("lReservationDetails")} sub color="teal" />
               <MyDateInput
-                placeholderText={t('lCheckin')}
+                placeholderText={t("lCheckin")}
                 name="checkinDate"
                 dateFormat="MMMM d, yyyy"
                 minDate={tomorrow}
                 maxDate={oneMonthFuture}
+                onChangeRaw={()=>setDateChanged(true)}
               />
               <MyDateInput
-                placeholderText={t('lCheckout')}
+                placeholderText={t("lCheckout")}
                 name="checkoutDate"
                 dateFormat="MMMM d, yyyy"
                 minDate={tomorrow}
                 maxDate={oneMonthFuture}
+                onChangeRaw={()=>setDateChanged(true)}
               />
               <Button
-                disabled={isSubmitting}
+                disabled={!(isValid && dirty)}
                 loading={loading}
                 floated="right"
                 positive
                 type="submit"
-                content={t('bSubmit')}
+                content={t("bSubmit")}
               />
               <Button
                 as={Link}
                 to="/reservations"
                 floated="right"
                 type="button"
-                content={t('bCancel')}
+                content={t("bCancel")}
               />
             </Form>
           )}
         </Formik>
-        
-        
-        
       </Segment>
-      {
-          errors &&  <ValidationMessageError message={errors} />
-        }
+      {errors && <ValidationMessageError message={errors} />}
       <Container>
         <Header
           style={{ fontSize: 30 }}
-          content={t('lAvailableDates')}
+          content={t("lAvailableDates")}
           sub
           color="teal"
         />

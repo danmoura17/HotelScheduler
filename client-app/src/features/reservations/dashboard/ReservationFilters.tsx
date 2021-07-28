@@ -11,13 +11,13 @@ export default function ReservationFilters() {
   
   return (
     <>
-      <Menu vertical size="large" style={{ width: "100%", marginTop: 25 }}>
+      {/* <Menu vertical size="large" style={{ width: "100%", marginTop: 25 }}>
         <Header icon="filter" attached color="teal" content={t('lFilters')} />
         <Menu.Item content={t('fAllReservations')} />
         <Menu.Item content={t('fFutureReservations')} />
         <Menu.Item content={t('fCancelReservations')} />
-      </Menu>
-      <Header />
+      </Menu> */}
+      <Header style={{marginTop: 30, marginBottom: 20}} icon="calendar" attached color="teal" content={t('lFilters')} />
       <Calendar allowPartialRange selectRange minDate={today} maxDate={endDate} locale={t('locale')} />
     </>
   );

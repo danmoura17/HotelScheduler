@@ -5,7 +5,6 @@ export const TRANSLATIONS_EN = {
     locale:'en',
     lDatefns: 'en',
     "postedOn": "Posted on {{ date, MM/YY/DDDD }}",
-
     bGoDashboard: 'Take me to the Reservations!',
     bLogin: 'Sign in',
     bRegister: 'Register',
@@ -36,7 +35,7 @@ export const TRANSLATIONS_EN = {
         "postedOn": "{{ date, relative }} (that is {{ date, ago }}).",
         "fullDateComplete":"The date is {{ date, complete }}",
         "fullDateBig": '{{ date, big }}',
-        "reservedDate": '{{ reservedDate, relative }} ( {{ reservedDate, ago }}).'
+        "reservedDate": '{{ reservedDate, long }}.'
 
     },
     bViewReservation: 'View reservation',
@@ -55,4 +54,18 @@ export const TRANSLATIONS_EN = {
     eInvalidEmailPassword:'Invalid email or password',
     lDelete: 'Do you want to delete this reservation?',
     bDelete: 'Delete',
+    eCheckin: 'Checkin date is required',
+    eCheckout: 'Checkout date is required',
+    eEmail: 'Email is required',
+    eFirstName: 'First name is required',
+    eLastName: 'Last name is required',
+    eCountry: 'Country is required',
+    eCity: 'City is required',
+    ePhoneNumber: 'Phone number is required',
+    eDisplayName: 'Name is required',
+    eUserName: 'Username is required',
+    ePassword: 'Password is required',
+    eLongInterval: 'It is not possible to make a reservation for more than 3 days',
+    eOutBeforeInt: 'Checkout date can not be before checkin date',
+    eUnavailableDate: 'Date unavailable. Check the dates below:', 
    };

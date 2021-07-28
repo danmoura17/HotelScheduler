@@ -80,6 +80,8 @@ Start the server
 ```bash
  npm run start
 ```
+
+(It's necessary PostgreSQL installed)
  
 
   

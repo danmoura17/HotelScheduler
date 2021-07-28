@@ -23,7 +23,7 @@ export default observer(function NavBar() {
           HotelScheduler
         </Menu.Item>
         <Menu.Item as={NavLink} to="/reservations" name={t("tReservations")} />
-        <Menu.Item as={NavLink} to="/errors" name={t("bErrors")} />
+        {/* <Menu.Item as={NavLink} to="/errors" name={t("bErrors")} /> */}
         <Menu.Item>
           <Button
             as={NavLink}
