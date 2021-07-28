@@ -12,10 +12,10 @@ export default function ReservationFilters() {
   return (
     <>
       <Menu vertical size="large" style={{ width: "100%", marginTop: 25 }}>
-        <Header icon="filter" attached color="teal" content="Filters" />
-        <Menu.Item content="All reservations" />
-        <Menu.Item content="Future reservations" />
-        <Menu.Item content="Canceled reservations" />
+        <Header icon="filter" attached color="teal" content={t('lFilters')} />
+        <Menu.Item content={t('fAllReservations')} />
+        <Menu.Item content={t('fFutureReservations')} />
+        <Menu.Item content={t('fCancelReservations')} />
       </Menu>
       <Header />
       <Calendar allowPartialRange selectRange minDate={today} maxDate={endDate} locale={t('locale')} />

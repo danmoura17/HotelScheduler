@@ -13,13 +13,16 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import LoadingComponent from "../../../app/layouts/loadingComponent";
 import { v4 as uuid } from "uuid";
 import { Reservation } from "../../../app/models/reservation";
-import { Formik, useFormikContext, getIn } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import ValidationMessageError from "../../errors/ErrorMessage";
 import MyTextInput from "../../../app/common/form/MyTextInput";
+import { useTranslation } from "react-i18next";
 
 export default observer(function ReservationForm() {
+  const { t } = useTranslation();
+
   const history = useHistory();
 
   const { reservationStore } = useStore();
@@ -99,11 +102,11 @@ export default observer(function ReservationForm() {
     let difference = dateDiffInDays(startdateMoment, enddateMoment);
   
     if(difference >= 3) {
-      setErrors("Too many days")
+      setErrors("It is not possible to make a reservation for more than 3 days")
     } else {
 
       if(new Date(startdateMoment) > new Date(enddateMoment)){
-        setErrors("Checkout can not be before checkin")
+        setErrors("Checkout date can not be before checkin date")
       } else {
 
         for (var reservationDates = [], dt = new Date(reservation.checkinDate!); dt <= reservation.checkoutDate!; dt.setDate(dt.getDate() + 1)) {
@@ -162,13 +165,8 @@ export default observer(function ReservationForm() {
     }
   }
 
-  const handleReset = () => {
-    if (!window.confirm('Reset?')) {
-       
-    }
-  };
 
-  if (loading) return <LoadingComponent content="Loading reservation..." />;
+  if (loading) return <LoadingComponent content={t('lLoadingReservation')} />;
 
 
   return (
@@ -185,24 +183,24 @@ export default observer(function ReservationForm() {
 
             
             <Form onSubmit={handleSubmit} autoComplete="off">
-              <Header content="User Details" sub color="teal" />
-              <MyTextInput name='firstName' placeholder='First Name'/>
-              <MyTextInput name='lastName' placeholder='Last Name'/>
-              <MyTextInput name='country' placeholder='Country'/>
-              <MyTextInput name='city' placeholder='City'/>
-              <MyTextInput name='email' placeholder='Email'/>
-              <MyTextInput name='phone' placeholder='Phone'/>
+              <Header content={t('lUserDetails')} sub color="teal" />
+              <MyTextInput name='firstName' placeholder={t('lFirstName')}/>
+              <MyTextInput name='lastName' placeholder={t('lLastName')}/>
+              <MyTextInput name='country' placeholder={t('lCountry')}/>
+              <MyTextInput name='city' placeholder={t('lCity')}/>
+              <MyTextInput name='email' placeholder={t('lEmail')}/>
+              <MyTextInput name='phone' placeholder={t('lPhone')}/>
 
-              <Header content="Reservation Details" sub color="teal" />
+              <Header content={t('lReservationDetails')} sub color="teal" />
               <MyDateInput
-                placeholderText="Checkin Date"
+                placeholderText={t('lCheckin')}
                 name="checkinDate"
                 dateFormat="MMMM d, yyyy"
                 minDate={tomorrow}
                 maxDate={oneMonthFuture}
               />
               <MyDateInput
-                placeholderText="Checkout Date"
+                placeholderText={t('lCheckout')}
                 name="checkoutDate"
                 dateFormat="MMMM d, yyyy"
                 minDate={tomorrow}
@@ -214,14 +212,14 @@ export default observer(function ReservationForm() {
                 floated="right"
                 positive
                 type="submit"
-                content="Submit"
+                content={t('bSubmit')}
               />
               <Button
                 as={Link}
                 to="/reservations"
                 floated="right"
                 type="button"
-                content="Cancel"
+                content={t('bCancel')}
               />
             </Form>
           )}
@@ -236,7 +234,7 @@ export default observer(function ReservationForm() {
       <Container>
         <Header
           style={{ fontSize: 30 }}
-          content="Available dates"
+          content={t('lAvailableDates')}
           sub
           color="teal"
         />

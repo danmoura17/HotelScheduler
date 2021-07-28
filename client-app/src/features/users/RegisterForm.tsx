@@ -6,9 +6,12 @@ import MyTextInput from "../../app/common/form/MyTextInput";
 import { useStore } from "../../app/stores/store";
 import * as Yup from 'yup';
 import ValidationErrors from "../errors/ValidationErrors";
+import { useTranslation } from "react-i18next";
 
 export default observer(function RegisterForm() {
     const {userStore} = useStore();
+    const { t } = useTranslation();
+
 
     return (
         <Formik
@@ -26,17 +29,17 @@ export default observer(function RegisterForm() {
         >
             {({handleSubmit, isSubmitting, errors, isValid, dirty}) => (
                 <Form className='ui form error' onSubmit={handleSubmit} autoComplete='off'>
-                    <Header as='h2' content='Register to HotelScheduler' color='teal' textAlign='center'/>
-                    <MyTextInput name='displayName' placeholder='Name'/>
-                    <MyTextInput name='username' placeholder='Username'/>
-                    <MyTextInput name='email' placeholder='Email'/> 
-                    <MyTextInput name='password' placeholder='Password' type='password'/>
+                    <Header as='h2' content={t('bRegister')} color='teal' textAlign='center'/>
+                    <MyTextInput name='displayName' placeholder={t('lName')}/>
+                    <MyTextInput name='username' placeholder={t('lUsername')}/>
+                    <MyTextInput name='email' placeholder={t('lEmail')}/> 
+                    <MyTextInput name='password' placeholder={t('lPassword')} type='password'/>
                     
                     <ErrorMessage
                         name='error' render={()=> 
                         <ValidationErrors errors={errors.error} /> }
                     />
-                    <Button disabled={!isValid || !dirty} loading={isSubmitting} positive content='Register' type='submit' fluid />
+                    <Button disabled={!isValid || !dirty} loading={isSubmitting} positive content={t('bRegister')} type='submit' fluid />
                 </Form>
             )}
 

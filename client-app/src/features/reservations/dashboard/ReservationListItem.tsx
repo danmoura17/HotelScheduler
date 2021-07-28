@@ -2,13 +2,18 @@ import { Link } from "react-router-dom";
 import { Button, Icon, Item, Segment } from "semantic-ui-react";
 import { Reservation } from "../../../app/models/reservation";
 import {format} from 'date-fns'
+import { useTranslation } from "react-i18next";
 
 interface Props {
   reservation: Reservation;
 }
 
 export default function ReservationListItem({ reservation }: Props) {
+  const { t } = useTranslation();
 
+  const reservedDate = reservation.reservationDate!;
+  const checkinDate = reservation.checkinDate!;
+  const checkoutDate = reservation.checkoutDate
 
   return (
     <Segment.Group>
@@ -20,10 +25,10 @@ export default function ReservationListItem({ reservation }: Props) {
               <Item.Header as={Link} to={`/reservations/${reservation.id}`}>
               {reservation.firstName} {reservation.lastName}
               </Item.Header>
-              <Item.Meta> <Icon name="clock" /> Checkin: {format(reservation.checkinDate!, 'dd MMMM yyyy')}</Item.Meta>
-              <Item.Meta> <Icon name="clock" /> Checkout: {format(reservation.checkinDate!, 'dd MMMM yyyy')}</Item.Meta>
+              <Item.Meta> <Icon name="clock outline" /> {t('lCheckin')}: {t("dates.localisedDate", { checkinDate })}</Item.Meta>
+              <Item.Meta> <Icon name="clock" /> {t('lCheckout')}: {t("dates.localisedDateout", { checkoutDate })}</Item.Meta>
             </Item.Content>
-            <Item.Description>Attended by {reservation.attendedBy}</Item.Description>
+            <Item.Description>{t('bAttendedBy')} {reservation.attendedBy}</Item.Description>
           </Item>
         </Item.Group>
       </Segment>
@@ -32,16 +37,16 @@ export default function ReservationListItem({ reservation }: Props) {
           <Icon name="marker" /> {reservation.country} - {reservation.city}
         </span>
       </Segment>
-      <Segment secondary>Reserved in:</Segment>
+      <Segment secondary>{t('lReservedIn')}</Segment>
       <Segment clearing>
         <span>
-        {format(reservation.reservationDate!, 'dd MMMM yyyy')}
+        {t("dates.reservedDate", { reservedDate })}
           <Button 
           as={Link} 
           to={`/reservations/${reservation.id}`}
           color='teal'
           floated='right'
-          content='view'
+          content={t('bViewReservation')}
 
            />
         </span>

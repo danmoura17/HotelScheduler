@@ -3,6 +3,7 @@ import React from "react";
 import { Segment, Grid, Icon, List } from "semantic-ui-react";
 import { Reservation } from "../../../app/models/reservation";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   reservation: Reservation;
@@ -11,6 +12,10 @@ interface Props {
 export default observer(function ReservationDetailedInfo({
   reservation,
 }: Props) {
+  const { t } = useTranslation();
+
+  const date = reservation.checkinDate
+
   return (
     <Segment.Group>
       <Segment attached="top">
@@ -21,6 +26,7 @@ export default observer(function ReservationDetailedInfo({
           <Grid.Column width={11}>
             <p>
               {reservation.firstName} {reservation.lastName}
+             
             </p>
           </Grid.Column>
         </Grid>
@@ -31,7 +37,7 @@ export default observer(function ReservationDetailedInfo({
             <Icon name="marker" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={11}>
-            <span>Brazil, Rio de Janeiro</span>
+            <span>{reservation.country}, {reservation.city}</span>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -51,7 +57,13 @@ export default observer(function ReservationDetailedInfo({
             <Icon name="phone" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={11}>
-            <span>{reservation.phone}</span>
+            <span>{reservation.phone} </span>
+            <p>
+                  {t("lCheckout")}:{" "}
+                  
+                </p>
+                {/* <p>{t("dates.localisedDate", { oi })}</p> */}
+                <p>{t("dates.localisedDate", { date })}</p>
           </Grid.Column>
         </Grid>
       </Segment>

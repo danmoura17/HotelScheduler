@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Grid } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layouts/loadingComponent";
 import { useStore } from "../../../app/stores/store";
@@ -7,6 +8,8 @@ import ReservationFilters from "./ReservationFilters";
 import ReservationList from "./ReservationList";
 
 export default observer(function ReservationDashboard() {
+  const { t } = useTranslation();
+
   const { reservationStore } = useStore();
   const {loadReservations, reservertionRegistry} = reservationStore;
 
@@ -15,7 +18,7 @@ export default observer(function ReservationDashboard() {
   }, [reservertionRegistry.size, loadReservations]);
 
   if (reservationStore.loadingInitial)
-    return <LoadingComponent content="Loading reservations..." />;
+    return <LoadingComponent content={t('lLoadingReservation')} />;
 
   return (
     <Grid>

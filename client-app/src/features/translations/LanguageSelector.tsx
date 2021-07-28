@@ -20,7 +20,7 @@ export default function LanguageSelector(){
             <Flag name="es" />
           </Button>
           <Button style={{ margin: 10 }} value="en" onClick={handleOnclick}>
-            <Flag name="gb eng" />
+            <Flag name="uk" />
           </Button>
           <Button style={{ margin: 10 }} value="fr" onClick={handleOnclick}>
             <Flag name="fr" />

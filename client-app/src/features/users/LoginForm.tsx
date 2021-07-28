@@ -26,7 +26,7 @@ export default observer(function LoginForm() {
                         name='error' render={()=> 
                         <Label style={{marginBottom: 10}} basic color='red' content={errors.error}/> }
                     />
-                    <Button loading={isSubmitting} positive content='Login' type='submit' fluid />
+                    <Button loading={isSubmitting} positive content={t('bLogin')} type='submit' fluid />
                 </Form>
             )}
 

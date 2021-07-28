@@ -3,8 +3,11 @@ import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import ReservationListItem from "./ReservationListItem";
 import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 
 export default observer(function ReservationList() {
+  const { t } = useTranslation();
+
   const { reservationStore } = useStore();
   const { groupedReservations } = reservationStore;
 
@@ -17,7 +20,7 @@ export default observer(function ReservationList() {
           </Header>
 
           {reservations.map((reservation) => (
-            <ReservationListItem
+            <ReservationListItem 
               key={reservation.id}
               reservation={reservation}
             />

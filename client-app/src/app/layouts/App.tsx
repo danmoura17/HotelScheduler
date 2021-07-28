@@ -16,8 +16,11 @@ import { useEffect } from "react";
 import LoadingComponent from "./loadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
 import ReservationDelete from "../../features/reservations/dashboard/ReservationDelete";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation();
+
   const location = useLocation();
   const { commonStore, userStore } = useStore();
 
@@ -30,7 +33,7 @@ function App() {
   }, [commonStore, userStore]);
 
   if (!commonStore.appLoaded)
-    return <LoadingComponent content="Loading app..." />;
+    return <LoadingComponent content={t('lLoadingApp')} />;
 
   return (
     <>
