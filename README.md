@@ -3,7 +3,7 @@
     
 # Hotel Scheduler
  
-HotelScheduler is a .NET 5 and ReactJS tool for managing hotel rooms (in this case one room 😅 ).
+HotelScheduler is a ASP.NET Core and ReactJS tool for managing hotel rooms (in this case one room 😅 ).
 
 You can check in the link: https://hotelscheduler.herokuapp.com/ 
 
