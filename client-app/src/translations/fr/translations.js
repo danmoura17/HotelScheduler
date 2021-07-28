@@ -50,5 +50,6 @@ export const TRANSLATIONS_FR = {
     fFutureReservations:'Réservations futures',
     fCancelReservations:'Réservations annulées',
     eInvalidEmailPassword:'Email ou mot de passe invalide',
-
+    lDelete: 'Voulez-vous supprimer cette réservation ?',
+    bDelete: 'Supprimer',
    };

@@ -34,11 +34,11 @@ export default function ReservationDelete() {
       <Segment placeholder>
             <Header icon>
                 <Icon name='delete' color='red'/>
-                Deseja deletar essa reserva?
+                {t('lDelete')}
             </Header>
             <Segment.Inline>
                 <Button onClick={()=>handleFormSubmit()} negative>
-                    Cancelar
+                  {t('bDelete')}
                 </Button>
             </Segment.Inline>
         </Segment>
